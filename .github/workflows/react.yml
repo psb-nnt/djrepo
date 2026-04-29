@@ -1,48 +1,59 @@
 name: React CI
 
 on:
+
   push:
-    branches: ["wk05"]
+
+    branches: [ "wk05" ]
 
     paths:
+
       - "frontend/**" # เฉพาะไฟล์ Frontend
 
   pull_request:
-    branches: ["wk05"]
+
+    branches: [ "wk05" ]
 
     paths:
+
       - "frontend/**"
 
 jobs:
+
   build:
+
     runs-on: ubuntu-latest
 
     defaults:
+
       run:
+
         working-directory: ./frontend
 
-    steps:
-      - uses: actions/checkout@v4
+            steps:
 
-      - name: Set up Node.js
+    - uses: actions/checkout@v4
 
-        uses: actions/setup-node@v4
+    - name: Set up Node.js
 
-        with:
-          node-version: "18"
+      uses: actions/setup-node@v4
 
-          cache: "npm"
+      with:
 
-          cache-dependency-path: frontend/package-lock.json
+        node-version: "18"
 
-      - name: Install Dependencies
+        cache: "npm"
 
-        run: npm ci
+        cache-dependency-path: frontend/package-lock.json
 
-      - name: Build
+    - name: Install Dependencies
 
-        run: npm run build
+      run: npm ci
 
-        env:
-          CI: false # ป้องกัน build fail จาก warning เล็กน้อย (Optional)
+    - name: Build
 
+      run: npm run build
+
+      env:
+
+        CI: false # ป้องกัน build fail จาก warning เล็กน้อย (Optional)
